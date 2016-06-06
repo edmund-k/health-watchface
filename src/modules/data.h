@@ -17,6 +17,9 @@ typedef enum {
 void data_init();
 void data_deinit();
 
+int data_get_current_dist();
+void data_set_current_dist(int value);
+
 int data_get_current_steps();
 void data_set_current_steps(int value);
 

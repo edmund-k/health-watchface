@@ -220,6 +220,7 @@ void graphics_fill_goal_line(GContext *ctx, int32_t day_average_steps,
 }
 
 void graphics_draw_steps_value(GContext *ctx, GRect bounds, GColor color, GBitmap *bitmap) {
+  GRect dist_text_box = bounds;
   GRect steps_text_box = bounds;
   GRect shoe_bitmap_box = bounds;
   const char *steps_buffer = data_get_current_steps_buffer();
@@ -233,12 +234,18 @@ void graphics_draw_steps_value(GContext *ctx, GRect bounds, GColor color, GBitma
   steps_text_box.size = GSize(text_width, font_height);
   const int combined_width = shoe_bitmap_box.size.w + padding + text_width;
 
+  dist_text_box.origin.x = 0;
+  dist_text_box.origin.y = PBL_IF_RECT_ELSE(56-14-5, 60-14-5);
   steps_text_box.origin.x = (bounds.size.w / 2) - (combined_width / 2);
   steps_text_box.origin.y = PBL_IF_RECT_ELSE(56, 60);
   shoe_bitmap_box.origin.x = (bounds.size.w / 2) + (combined_width / 2) - shoe_bitmap_box.size.w;
   shoe_bitmap_box.origin.y = PBL_IF_RECT_ELSE(60, 65);
 
-  graphics_context_set_text_color(ctx, color);
+  graphics_context_set_text_color(ctx, color); 
+  // ToDo: Needs to use real health data
+  // ToDo: Needs to differenciate between KM and MLS
+  graphics_draw_text(ctx, "0.0 KM", data_get_font(FontSizeSmall), 
+                     dist_text_box, GTextOverflowModeTrailingEllipsis, GTextAlignmentCenter, NULL);
   graphics_draw_text(ctx, steps_buffer, data_get_font(FontSizeSmall), 
                      steps_text_box, GTextOverflowModeTrailingEllipsis, GTextAlignmentCenter, NULL);
 

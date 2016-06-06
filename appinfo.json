@@ -1,32 +1,37 @@
 {
-  "uuid": "64AF47E3-942B-4B1B-859D-DC3181524C1E",
-  "shortName": "Stride",
-  "longName": "Stride",
-  "companyName": "Pebble",
-  "versionLabel": "1.5",
-  "sdkVersion": "3",
-  "targetPlatforms": ["basalt", "chalk"],
-  "watchapp": {
-    "watchface": true
-  },
-  "appKeys": {
-    "dummy": 0
-  },
-  "capabilities": [
-    "health"
-  ],
-  "resources": {
-    "media": [
-      {
-        "type": "png",
-        "name": "BLUE_SHOE_LOGO",
-        "file": "blue_shoe.png"
-      },
-      {
-        "type": "png",
-        "name": "GREEN_SHOE_LOGO",
-        "file": "green_shoe.png"
-      }
-    ]
-  }
+    "appKeys": {
+        "dummy": 0
+    },
+    "capabilities": [
+        "health"
+    ],
+    "companyName": "Pebble",
+    "enableMultiJS": false,
+    "longName": "Stride+",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/green_shoe.png",
+                "name": "GREEN_SHOE_LOGO",
+                "type": "png"
+            },
+            {
+                "file": "images/blue_shoe.png",
+                "name": "BLUE_SHOE_LOGO",
+                "type": "png"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "Stride+",
+    "targetPlatforms": [
+        "basalt",
+        "chalk"
+    ],
+    "uuid": "478c4675-e5f4-4487-95e3-af3bbb629a51",
+    "versionLabel": "1.5",
+    "watchapp": {
+        "watchface": true
+    }
 }
