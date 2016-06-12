@@ -22,10 +22,10 @@ static void progress_update_proc(Layer *layer, GContext *ctx) {
   GColor scheme_color;
   GBitmap *bitmap;
   if(current_steps >= current_average) {
-    scheme_color  = GColorJaegerGreen;
+    scheme_color  = GColorFromHEX(0x5c9b72); //GColorJaegerGreen;
     bitmap = data_get_green_shoe();
   } else {
-    scheme_color = GColorPictonBlue;
+    scheme_color = GColorFromHEX(0x4cb4db); //GColorPictonBlue;
     bitmap = data_get_blue_shoe();
   }
 
@@ -70,12 +70,12 @@ static void text_update_proc(Layer *layer, GContext *ctx) {
     graphics_draw_text(ctx, am ? "AM" : "PM", font_med, period_rect, 
                        GTextOverflowModeWordWrap, GTextAlignmentLeft, NULL);
   }
-
+/*
   const GRect date_rect = grect_inset(layer_bounds, GEdgeInsets(-y_margin+23+7, 0, 0, 0));
   // ToDo: Get real date and suitable format (e.g. depending on language and mls / km setting?)
   graphics_draw_text(ctx, "Jun 6.", data_get_font(FontSizeSmall), date_rect, 
                      GTextOverflowModeWordWrap, GTextAlignmentCenter, NULL);
-
+*/
 }
 
 /*********************************** Window ***********************************/

@@ -98,9 +98,12 @@ void data_init() {
   // Load resources
   s_green_shoe = gbitmap_create_with_resource(RESOURCE_ID_GREEN_SHOE_LOGO);
   s_blue_shoe = gbitmap_create_with_resource(RESOURCE_ID_BLUE_SHOE_LOGO);
-  s_font_small = fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
-  s_font_med = fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
-  s_font_big = fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK);
+  //s_font_small = fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD); // 18-7 = 11px h
+  //s_font_med = fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
+  //s_font_big = fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK);
+  s_font_small = fonts_get_system_font(FONT_KEY_LECO_20_BOLD_NUMBERS);
+  s_font_med = fonts_get_system_font(FONT_KEY_LECO_26_BOLD_NUMBERS_AM_PM);
+  s_font_big = fonts_get_system_font(FONT_KEY_LECO_32_BOLD_NUMBERS);
 
   // First time persist
   if(!persist_exists(AppKeyCurrentSteps)) {

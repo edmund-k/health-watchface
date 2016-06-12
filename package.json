@@ -1,0 +1,43 @@
+{
+    "author": "Pebble",
+    "dependencies": {},
+    "keywords": [],
+    "name": "stride",
+    "pebble": {
+        "capabilities": [
+            "health"
+        ],
+        "displayName": "Stride+",
+        "enableMultiJS": false,
+        "messageKeys": {
+            "dummy": 0
+        },
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/green_shoe.png",
+                    "name": "GREEN_SHOE_LOGO",
+                    "targetPlatforms": null,
+                    "type": "png"
+                },
+                {
+                    "file": "images/blue_shoe.png",
+                    "name": "BLUE_SHOE_LOGO",
+                    "targetPlatforms": null,
+                    "type": "png"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "basalt",
+            "chalk"
+        ],
+        "uuid": "478c4675-e5f4-4487-95e3-af3bbb629a51",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "1.5.0"
+}

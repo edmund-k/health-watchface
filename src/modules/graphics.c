@@ -234,7 +234,7 @@ void graphics_draw_steps_value(GContext *ctx, GRect bounds, GColor color, GBitma
   steps_text_box.size = GSize(text_width, font_height);
   const int combined_width = shoe_bitmap_box.size.w + padding + text_width;
 
-  dist_text_box.origin.x = 0;
+  dist_text_box.origin.x = 500;
   dist_text_box.origin.y = PBL_IF_RECT_ELSE(56-14-5, 60-14-5);
   steps_text_box.origin.x = (bounds.size.w / 2) - (combined_width / 2);
   steps_text_box.origin.y = PBL_IF_RECT_ELSE(56, 60);
