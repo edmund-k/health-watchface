@@ -239,7 +239,7 @@ void graphics_draw_steps_value(GContext *ctx, GRect bounds, GColor color, GBitma
   steps_text_box.origin.x = (bounds.size.w / 2) - (combined_width / 2);
   steps_text_box.origin.y = PBL_IF_RECT_ELSE(56, 60);
   shoe_bitmap_box.origin.x = (bounds.size.w / 2) + (combined_width / 2) - shoe_bitmap_box.size.w;
-  shoe_bitmap_box.origin.y = PBL_IF_RECT_ELSE(60, 65);
+  shoe_bitmap_box.origin.y = PBL_IF_RECT_ELSE(61, 66);
 
   graphics_context_set_text_color(ctx, color); 
   // ToDo: Needs to use real health data

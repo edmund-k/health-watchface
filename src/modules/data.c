@@ -67,13 +67,14 @@ static void update_average(AverageType type) {
 }
 
 void data_update_steps_buffer() {
-  int thousands = s_current_steps / 1000;
+  /*int thousands = s_current_steps / 1000;
   int hundreds = s_current_steps % 1000;
   if(thousands > 0) {
     snprintf(s_current_steps_buffer, sizeof(s_current_steps_buffer), "%d,%03d", thousands, hundreds);
   } else {
     snprintf(s_current_steps_buffer, sizeof(s_current_steps_buffer), "%d", hundreds);
-  }
+  }*/
+  snprintf(s_current_steps_buffer, sizeof(s_current_steps_buffer), "%d", s_current_steps);
 
   main_window_redraw();
 }

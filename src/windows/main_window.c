@@ -53,7 +53,7 @@ static void text_update_proc(Layer *layer, GContext *ctx) {
   }
 
   const int x_margin = (layer_bounds.size.w - total_width) / 2;
-  const int y_margin = PBL_IF_RECT_ELSE(8, 2);
+  const int y_margin = PBL_IF_RECT_ELSE(6, 4);
   const GRect time_rect = grect_inset(layer_bounds, GEdgeInsets(-y_margin, 0, 0, x_margin));
   graphics_context_set_text_color(ctx, GColorWhite);
   graphics_draw_text(ctx, s_current_time_buffer, font_large, time_rect, 
