@@ -7,7 +7,7 @@ static char s_current_time_buffer[8];
 
 static void progress_update_proc(Layer *layer, GContext *ctx) {
   GRect bounds = layer_get_bounds(layer);
-  const int fill_thickness = PBL_IF_RECT_ELSE(12, (180 - grect_inset(bounds, GEdgeInsets(12)).size.h) / 2);
+  const int fill_thickness = PBL_IF_RECT_ELSE(11, (180 - grect_inset(bounds, GEdgeInsets(11)).size.h) / 2);
   int current_steps = data_get_current_steps();
   int daily_average = data_get_daily_average();
   int current_average = data_get_current_average();
@@ -22,10 +22,10 @@ static void progress_update_proc(Layer *layer, GContext *ctx) {
   GColor scheme_color;
   GBitmap *bitmap;
   if(current_steps >= current_average) {
-    scheme_color  = GColorFromHEX(0x5c9b72); //GColorJaegerGreen;
+    scheme_color  = GColorJaegerGreen;
     bitmap = data_get_green_shoe();
   } else {
-    scheme_color = GColorFromHEX(0x4cb4db); //GColorPictonBlue;
+    scheme_color = GColorVividCerulean;
     bitmap = data_get_blue_shoe();
   }
 
