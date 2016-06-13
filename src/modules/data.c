@@ -3,6 +3,7 @@
 typedef enum {
   AppKeyCurrentAverage = 0,
   AppKeyDailyAverage,
+  AppKeyCurrentDist,
   AppKeyCurrentSteps
 } AppKey;
 
@@ -12,9 +13,10 @@ typedef enum {
 } AverageType;
 
 static GBitmap *s_blue_shoe, *s_green_shoe;
-static GFont s_font_small, s_font_big, s_font_med;
+static GFont s_font_small, s_font_med, s_font_big, s_font_date;
 
-static int s_current_steps, s_daily_average, s_current_average;
+static int s_current_dist, s_current_steps, s_daily_average, s_current_average;
+static char s_current_dist_buffer[8];
 static char s_current_steps_buffer[8];
 
 static void update_average(AverageType type) {
@@ -66,6 +68,14 @@ static void update_average(AverageType type) {
   }
 }
 
+void data_update_dist_buffer() {
+  int thousands = s_current_dist / 1000;
+  int hundreds = (s_current_dist % 1000) / 100;
+  snprintf(s_current_dist_buffer, sizeof(s_current_dist_buffer), "%0d.%0d", thousands, hundreds);
+
+  //main_window_redraw();
+}
+
 void data_update_steps_buffer() {
   /*int thousands = s_current_steps / 1000;
   int hundreds = s_current_steps % 1000;
@@ -76,11 +86,14 @@ void data_update_steps_buffer() {
   }*/
   snprintf(s_current_steps_buffer, sizeof(s_current_steps_buffer), "%d", s_current_steps);
 
-  main_window_redraw();
+  //main_window_redraw();
 }
 
 static void load_health_data_handler(void *context) {
   const struct tm *time_now = util_get_tm();
+
+  s_current_dist = health_service_sum_today(HealthMetricWalkedDistanceMeters);
+  persist_write_int(AppKeyCurrentDist, s_current_dist);
 
   s_current_steps = health_service_sum_today(HealthMetricStepCount);
   persist_write_int(AppKeyCurrentSteps, s_current_steps);
@@ -88,7 +101,10 @@ static void load_health_data_handler(void *context) {
   update_average(AverageTypeDaily);
   update_average(AverageTypeCurrent);
 
+  data_update_dist_buffer();
   data_update_steps_buffer();
+
+  main_window_redraw();
 }
 
 void data_reload_averages() {
@@ -99,22 +115,24 @@ void data_init() {
   // Load resources
   s_green_shoe = gbitmap_create_with_resource(RESOURCE_ID_GREEN_SHOE_LOGO);
   s_blue_shoe = gbitmap_create_with_resource(RESOURCE_ID_BLUE_SHOE_LOGO);
-  //s_font_small = fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD); // 18-7 = 11px h
   //s_font_med = fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
   //s_font_big = fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK);
   s_font_small = fonts_get_system_font(FONT_KEY_LECO_20_BOLD_NUMBERS);
   s_font_med = fonts_get_system_font(FONT_KEY_LECO_26_BOLD_NUMBERS_AM_PM);
   s_font_big = fonts_get_system_font(FONT_KEY_LECO_32_BOLD_NUMBERS);
+  s_font_date = fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
 
   // First time persist
   if(!persist_exists(AppKeyCurrentSteps)) {
+    s_current_dist = 0;
     s_current_steps = 0;
     s_current_average = 0;
     s_daily_average = 0;
   } else {
+    s_current_dist = persist_read_int(AppKeyCurrentDist);
+    s_current_steps = persist_read_int(AppKeyCurrentSteps);
     s_current_average = persist_read_int(AppKeyCurrentAverage);
     s_daily_average = persist_read_int(AppKeyDailyAverage);
-    s_current_steps = persist_read_int(AppKeyCurrentSteps);
   }
   data_update_steps_buffer();
 
@@ -127,6 +145,10 @@ void data_deinit() {
   gbitmap_destroy(s_blue_shoe);
 }
 
+int data_get_current_dist() {
+  return s_current_dist;
+}
+
 int data_get_current_steps() {
   return s_current_steps;
 }
@@ -137,6 +159,10 @@ int data_get_current_average() {
 
 int data_get_daily_average() {
   return s_daily_average;
+}
+
+void data_set_current_dist(int value) {
+  s_current_dist = value;
 }
 
 void data_set_current_steps(int value) {
@@ -156,6 +182,7 @@ GFont data_get_font(FontSize size) {
     case FontSizeSmall:  return s_font_small;
     case FontSizeMedium: return s_font_med;
     case FontSizeLarge:  return s_font_big;
+    case FontSizeDate:   return s_font_date;
     default: return s_font_small;
   }
 }
@@ -166,6 +193,10 @@ GBitmap* data_get_blue_shoe() {
 
 GBitmap* data_get_green_shoe() {
   return s_green_shoe;
+}
+
+char* data_get_current_dist_buffer() {
+  return s_current_dist_buffer;
 }
 
 char* data_get_current_steps_buffer() {

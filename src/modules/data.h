@@ -11,7 +11,8 @@
 typedef enum {
   FontSizeSmall = 0,
   FontSizeMedium,
-  FontSizeLarge
+  FontSizeLarge,
+  FontSizeDate
 } FontSize;
 
 void data_init();
@@ -38,5 +39,7 @@ GBitmap* data_get_blue_shoe();
 GBitmap* data_get_green_shoe();
 
 void data_update_steps_buffer();
+
+char* data_get_current_dist_buffer();
 
 char* data_get_current_steps_buffer();
