@@ -59,9 +59,9 @@ static void text_update_proc(Layer *layer, GContext *ctx) {
   graphics_draw_text(ctx, s_current_time_buffer, font_large, time_rect, 
                      GTextOverflowModeWordWrap, GTextAlignmentLeft, NULL);
 
+  const struct tm *time_now = util_get_tm();
   if(!clock_is_24h_style()) {
     // 12 hour mode
-    const struct tm *time_now = util_get_tm();
     const bool am = time_now->tm_hour < 12;
     const int spacing = 2;
 
@@ -73,7 +73,11 @@ static void text_update_proc(Layer *layer, GContext *ctx) {
 
   const GRect date_rect = grect_inset(layer_bounds, GEdgeInsets(-y_margin+23+9, 0, 0, 0));
   // ToDo: Get real date and suitable format (e.g. depending on language and mls / km setting?)
-  graphics_draw_text(ctx, "Jun 14.", data_get_font(FontSizeDate), date_rect, 
+  const int s_date_len = 7;
+  char s_date[s_date_len];
+  strftime (s_date, s_date_len, "%b %d\n", time_now);
+  strupr(s_date);
+  graphics_draw_text(ctx, s_date, data_get_font(FontSizeDate), date_rect, 
                      GTextOverflowModeWordWrap, GTextAlignmentCenter, NULL);
 
 }
